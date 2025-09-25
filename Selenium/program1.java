@@ -1,4 +1,4 @@
-package Selenium;
+package Selenium.Selenium.Selenium;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
