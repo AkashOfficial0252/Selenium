@@ -26,16 +26,17 @@ public class proxyCheck {
 
             System.out.println("Checking: " + ip);
             driver.get("https://ip-api.com/" + ip);
+            driver.manage().window().maximize();
             Thread.sleep(1000);
             driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
             Thread.sleep(1000);
-            System.out.println("checking");
+            
 
             String result;
             try {
                 // Adjust this XPath/CSS based on site structure  
 
-                result = driver.findElement(By.xpath("//span[44]")).getText();
+                result = driver.findElement(By.xpath("//span[44]")).getText();// new comment
                 System.out.println("Ip result"+"=>"+result);
             } catch (Exception e) {
                 result = "Not Found / Error";
