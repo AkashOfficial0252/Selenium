@@ -26,7 +26,7 @@ public class proxyCheck {
 
             System.out.println("Checking: " + ip);
             driver.get("https://ip-api.com/" + ip);
-            driver.manage().window().maximize();
+           // driver.manage().window().maximize();
             Thread.sleep(1000);
             driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
             Thread.sleep(1000);
