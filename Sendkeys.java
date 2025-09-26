@@ -18,8 +18,7 @@ public class Sendkeys {
 	
 	driver.findElement(By.name("password")).sendKeys("12345678");
 	driver.findElement(By.className("button-label-icon")).click();
-	
-	
+	System.out.print("change in hp");	
 	    
 	//driver.close();
 	
