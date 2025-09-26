@@ -1,9 +1,9 @@
 package Selenium;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WindowType;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.chrome.ChromeOptions;
 
 
 
@@ -13,7 +13,7 @@ public class testing {
         // Step 1: Set ChromeDriver path
       
         // Step 2: Set up ChromeOptions
-        ChromeOptions options = new ChromeOptions();
+        //ChromeOptions options = new ChromeOptions();
         //comment
 
        
