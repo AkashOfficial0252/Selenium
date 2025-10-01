@@ -11,8 +11,8 @@ public class proxyCheck {
     public static void main(String[] args) throws Exception {
       
         // Input & output files
-        File inputFile = new File("ips.txt");        // input file with IPs
-        File outputFile = new File("results.txt");   // output file
+        File inputFile = new File("ipcheck.txt");        // input file with IPs
+        File outputFile = new File("ipresults.txt");   // output file
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
