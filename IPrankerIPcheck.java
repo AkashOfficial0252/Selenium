@@ -1,5 +1,6 @@
 package Selenium;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,6 +22,8 @@ public class IPrankerIPcheck {
         BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
         WebDriver driver = new ChromeDriver();
+       
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -31,13 +34,15 @@ public class IPrankerIPcheck {
             if (ip.isEmpty()) continue;
 
             System.out.println("Checking: " + ip);
-            driver.get("https://ipranker.com/");
+            driver.get("https://dev.ipranker.com/");
+            js.executeScript("document.body.style.zoom='30%'");
            // driver.manage().window().maximize();
             Thread.sleep(1000);
+           
              WebElement input=driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address to analyze (e.g., 192.168.1.1)')]"));
             input.clear();
             input.sendKeys(ip);
-             Thread.sleep(1000);
+             Thread.sleep(2000);
              
              
              
@@ -45,7 +50,7 @@ public class IPrankerIPcheck {
             		    By.xpath("//button[normalize-space()='Analyze IP']")
             		));
             		analyzeBtn.click();
-            		Thread.sleep(4000);
+            		Thread.sleep(6000);
             
 
             String result;
