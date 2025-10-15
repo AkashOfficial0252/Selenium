@@ -1,4 +1,4 @@
-package Selenium;;
+package Selenium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,13 +23,13 @@ public class IpCheckIpRankerExcel {
 
             // ========== STEP 2: OPEN INPUT EXCEL ==========
             FileInputStream fis = new FileInputStream(inputFilePath);
-            Workbook inputWorkbook = new XSSFWorkbook(fis);
-            Sheet inputSheet = inputWorkbook.getSheetAt(0); // Read first sheet
+            Selenium.XSSFWorkbook inputWorkbook = new XSSFWorkbook(fis);
+            XSSFSheet inputSheet = inputWorkbook.getSheetAt(0); // Read first sheet
             fis.close();
 
             // ========== STEP 3: CREATE OUTPUT EXCEL ==========
-            Workbook outputWorkbook = new XSSFWorkbook();
-            Sheet outputSheet = outputWorkbook.createSheet("Results");
+            Selenium.XSSFWorkbook outputWorkbook = new XSSFWorkbook();
+            XSSFSheet outputSheet = outputWorkbook.createSheet("Results");
 
             // Create header row for output sheet
             Row header = outputSheet.createRow(0);
