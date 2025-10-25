@@ -28,6 +28,7 @@ public class IprankerIpModules {
 	XSSFRow row;
 	XSSFCell cl;
 	String Data;
+<<<<<<< HEAD
 	DataFormatter fr=new DataFormatter();//class in apache poi for to fetch the  cel data
 //for(int i=0;i<=1;i++) {
 //	row=sheet.getRow(i);
@@ -45,6 +46,16 @@ public class IprankerIpModules {
 //fos.close();
 
 
+=======
+	DataFormatter fr=new DataFormatter();
+for(int i=0;i<=i;i++) {
+	row=sheet.getRow(i);
+	cl=row.getCell(0);
+	System.out.println("yhn");
+	Data=fr.formatCellValue(cl);
+	System.out.println(Data);
+}
+>>>>>>> c2bad5e906ca36afb507616d746c040fe7fadfa5
 		
 	}
 

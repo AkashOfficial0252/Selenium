@@ -1,133 +1,129 @@
 package Selenium;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.time.Duration;
 
 public class IpCheckIpRankerExcel {
-    public static void main(String[] args) {
-        try {
-            // ========== STEP 1: SETUP FILE PATHS ==========
-            String inputFilePath = "input_ips.xlsx";   // Input Excel with IPs (column name: IP_address)
-            String outputFilePath = "Output_ips.xlsx"; // Output Excel to store results
+	
+	public static void main(String[] args) throws IOException, InterruptedException  {
+		WebDriver driver = new ChromeDriver();
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            // ========== STEP 2: OPEN INPUT EXCEL ==========
-            FileInputStream fis = new FileInputStream(inputFilePath);
-            Selenium.XSSFWorkbook inputWorkbook = new XSSFWorkbook(fis);
-            XSSFSheet inputSheet = inputWorkbook.getSheetAt(0); // Read first sheet
-            fis.close();
+		
+		FileInputStream file = new FileInputStream ("C:\\Ecslipse-Data\\input.xlsx");
+		
+		XSSFWorkbook WB= new XSSFWorkbook(file);
+	
+		XSSFSheet sheet =WB.getSheetAt(0);
+		
+		int TOTALROWS=sheet.getLastRowNum();
+		int TOTALCELLS=sheet.getRow(0).getLastCellNum();
+		
+		System.out.println("TOTAL NUMER OF IPS-->"+TOTALROWS);
+		System.out.println("TOTAL NUMER OF COLUMNS-->"+TOTALCELLS);
+		
+		
+  for(int r = 0;r<=TOTALROWS;r++) {
+	  XSSFRow CurrentRow= sheet.getRow(r);
+	  
+	  
+	  for (int c=0;c<TOTALCELLS;c++) {
+		  
+		  XSSFCell cell = CurrentRow.getCell(c);
+		  if (cell == null) continue;
+		  
+	
+		 String ips=(cell.toString());
+		 
+		 System.out.println(ips+"\t");
+		 
+	
+		 
+		  
+          driver.get("https://dev.ipranker.com/");// GO TO WEBSITE
+         
+         // driver.manage().window().maximize();
+          Thread.sleep(1000);
+          driver.findElement(By.xpath("//a[normalize-space()='Dashboard Login']")).click();
+          Thread.sleep(1000);
+          driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[2]/div[1]/form[1]/div[1]/div[1]")).click();
+          Thread.sleep(1000);
+          driver.findElement(By.xpath("//input[@placeholder='your@email.com']")).sendKeys("sikewej413@haotuwu.com");
+          
+          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).click();
+          Thread.sleep(1000);
+          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).sendKeys("Akku@0252");
+          driver.findElement(By.xpath("//input[@id='rememberMe']")).click();
+          driver.findElement(By.xpath("//button[normalize-space()='Sign in']")).click();
+          Thread.sleep(1000);
+          driver.findElement(By.xpath("//span[normalize-space()='IP Ranker']")).click();
+          js.executeScript("document.body.style.zoom='30%'");//ZOOM OUT THE SCREEN
+          Thread.sleep(1000);
+           WebElement input=driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address to analyze (e.g., 192.168.1.1)')]"));
+          input.clear();
+          input.sendKeys(ips);
+           Thread.sleep(2000);
+           
+           
+           
+           WebElement analyzeBtn = wait.until(ExpectedConditions.elementToBeClickable(
+          		    By.xpath("//button[normalize-space()='Analyze IP']")
+          		));
+          		analyzeBtn.click();
+          		Thread.sleep(6000);
+          
 
-            // ========== STEP 3: CREATE OUTPUT EXCEL ==========
-            Selenium.XSSFWorkbook outputWorkbook = new XSSFWorkbook();
-            XSSFSheet outputSheet = outputWorkbook.createSheet("Results");
+          String result;
+          try {
+              // Adjust this XPath/CSS based on site structure  
 
-            // Create header row for output sheet
-            Row header = outputSheet.createRow(0);
-            header.createCell(0).setCellValue("IP_address");
-            header.createCell(1).setCellValue("Proxy Status");
-            header.createCell(2).setCellValue("Bot Status");
-            header.createCell(3).setCellValue("Tor Status");
-
-            // ========== STEP 4: SETUP SELENIUM DRIVER ==========
-            WebDriver driver = new ChromeDriver();
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            driver.get("https://dev.ipranker.com/");
-            
-            
-
-            driver.findElement(By.xpath("//a[normalize-space()='Dashboard Login']")).click();
-             WebElement emailfiller=driver.findElement(By.xpath("//input[@placeholder='your@email.com']"));
-             emailfiller.sendKeys("Akashji0252@gmail.com");
-            
-             WebElement PassWord=driver.findElement(By.xpath("//input[@placeholder='••••••••']"));
-             PassWord.sendKeys("Akku@0252");
-             driver.findElement(By.xpath("//input[@id='rememberMe']")).click();//click on remember me
-             driver.findElement(By.xpath("//button[normalize-space()='Sign in']")).click();//click on sign-in button
-           Thread.sleep(6000);
+              result = driver.findElement(By.xpath("//div[@class='lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4']//div[1]//div[1]//span[1]")).getText();// new comment
+              System.out.println("Ip result"+"=>"+result);
+          } catch (Exception e) {
+              result = "Not Found / Error";
+          }
+		 
+		 
+		  XSSFCell resultCell = CurrentRow.getCell(1);
+          if (resultCell == null) 
+              {
+              resultCell =CurrentRow.createCell(1);
              
-           driver.findElement(By.xpath("//span[normalize-space()='IP Ranker']")).click();
+              }
+          resultCell.setCellValue(result);
+          
+          System.out.println("result saved successfully for-->"+ips);
+	  }
+		}
+  file.close();
+  
+  FileOutputStream out=new FileOutputStream("C:\\Ecslipse-Data\\input.xlsx");
+  
+  WB.write(out);
+  out.close();
+  WB.close();
 
-             
-        // js.executeScript("document.body.style.zoom='35%'")::;
-            Thread.sleep(1000);
-
-            // ========== STEP 5: READ EACH IP AND CHECK ==========
-            int rowCount = inputSheet.getLastRowNum();
-            for (int i = 1; i <= rowCount; i++) {  // skip header row
-                Row row = inputSheet.getRow(i);
-                if (row == null) continue;
-
-                Cell ipCell = row.getCell(0);
-                if (ipCell == null) continue;
-
-                String ipAddress = ipCell.getStringCellValue().trim();
-                if (ipAddress.isEmpty()) continue;
-
-                System.out.println("🔍 Checking IP: " + ipAddress);
-                
-              
-
-                // Open IP Ranker website
-             
-
-                // Enter IP in input field
-                WebElement input = driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address')]"));
-                input.clear();
-                input.sendKeys(ipAddress);
-                Thread.sleep(1000);
-
-                // Click Analyze button
-                WebElement analyzeBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//button[normalize-space()='Analyze IP']")));
-                analyzeBtn.click();
-                Thread.sleep(6000);
-
-                // Try to get Proxy result text
-                String proxyResult;
-                try {
-                    WebElement proxyElement = driver.findElement(
-                            By.xpath("//div[contains(text(),'Proxy')]/following-sibling::div//span"));
-                    proxyResult = proxyElement.getText();
-                } catch (Exception e) {
-                    proxyResult = "Not Found / Error";
-                }
-
-                System.out.println("Proxy Status for " + ipAddress + " => " + proxyResult);
-
-                // ========== STEP 6: WRITE RESULT TO OUTPUT SHEET ==========
-                Row outputRow = outputSheet.createRow(i);
-                outputRow.createCell(0).setCellValue(ipAddress);
-                outputRow.createCell(1).setCellValue(proxyResult);
-                outputRow.createCell(2).setCellValue("Pending"); // Placeholder for Bot
-                outputRow.createCell(3).setCellValue("Pending"); // Placeholder for Tor
-            }
-
-            // ========== STEP 7: SAVE OUTPUT EXCEL ==========
-            FileOutputStream fos = new FileOutputStream(outputFilePath);
-            outputWorkbook.write(fos);
-            fos.close();
-
-            // Close workbooks and browser
-            inputWorkbook.close();
-            outputWorkbook.close();
-            driver.quit();
-
-            System.out.println("✅ Done! Results saved in " + outputFilePath);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
+
+	
+
+
+}
+
