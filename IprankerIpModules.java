@@ -23,7 +23,7 @@ public class IprankerIpModules {
 	XSSFCell cl;
 	String Data;
 	DataFormatter fr=new DataFormatter();
-for(int i=0;i<=1;i++) {
+for(int i=0;i<=i;i++) {
 	row=sheet.getRow(i);
 	cl=row.getCell(0);
 	System.out.println("yhn");
