@@ -10,7 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
-import org.openqa.selenium.By.ByXPath;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,8 +19,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class IpCheckIpRankerExcel {
-	
 	public static void main(String[] args) throws IOException, InterruptedException  {
+		
+		
 		WebDriver driver = new ChromeDriver();
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
 	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -60,9 +61,8 @@ public class IpCheckIpRankerExcel {
 
 		
 		FileInputStream file = new FileInputStream ("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
-		                             // for workpc-- C:\\Ecslipse-Data\\input.xlsx
+		                             // for work Pc -- C:\\Ecslipse-Data\\input.xlsx
 		XSSFWorkbook WB= new XSSFWorkbook(file);
-	
 		XSSFSheet sheet =WB.getSheetAt(0);
 		
 		int TOTALROWS=sheet.getLastRowNum();
@@ -74,28 +74,19 @@ public class IpCheckIpRankerExcel {
 		
   for(int r = 0;r<=TOTALROWS;r++) {
 	  XSSFRow CurrentRow= sheet.getRow(r);
-	  
-	  
-	  for (int c=0;c<TOTALCELLS;c++) {
-		  
+	   for (int c=0;c<TOTALCELLS;c++) {
 		  XSSFCell cell = CurrentRow.getCell(c);
 		  if (cell == null) continue;
 		  
+		  String ips=(cell.toString());
+		 
+		 System.out.println(ips+"\t"); 
+		 
 	
-		 String ips=(cell.toString());
-		 
-		 System.out.println(ips+"\t");
-		 
-	
-		 
-		  
-          
-           WebElement input=driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address to analyze (e.g., 192.168.1.1)')]"));
+		 WebElement input=driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address to analyze (e.g., 192.168.1.1)')]"));
           input.clear();
           input.sendKeys(ips);
            Thread.sleep(2000);
-           
-           
            
            WebElement analyzeBtn = wait.until(ExpectedConditions.elementToBeClickable(
           		    By.xpath("//button[normalize-space()='Analyze IP']")
@@ -129,15 +120,11 @@ public class IpCheckIpRankerExcel {
   file.close();
   
   FileOutputStream out=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
-  
+                                           //for work Pc -- C:\\Ecslipse-Data\\input.xlsx
   WB.write(out);
   out.close();
   WB.close();
 
 }
-
-	
-
-
 }
 
