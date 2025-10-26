@@ -25,10 +25,42 @@ public class IpCheckIpRankerExcel {
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
 	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        driver.get("https://dev.ipranker.com/");// GO TO WEBSITE
+	         
+	         // driver.manage().window().maximize();
+	          Thread.sleep(1000);
+	          driver.findElement(By.xpath("//a[normalize-space()='Dashboard Login']")).click();
+	          Thread.sleep(1000);
+	          js.executeScript("document.body.style.zoom='50%'");//ZOOM OUT THE  SCREEN
+	          driver.findElement(By.xpath("//input[@placeholder='your@email.com']")).click();
+	          Thread.sleep(1000);
+	          driver.findElement(By.xpath("//input[@placeholder='your@email.com']")).sendKeys("sikewej413@haotuwu.com");//FILL USER NAME
+	          
+	          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).click();
+	          Thread.sleep(1000);
+	          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).sendKeys("Akku@0252");//FILL PASSWORD
+	          driver.findElement(By.xpath("//input[@id='rememberMe']")).click();
+	          driver.findElement(By.xpath("//button[normalize-space()='Sign in']")).click();//CLICK ON SIGN IN BUTTON
+	          Thread.sleep(1000);
+	          //driver.findElement(By.xpath("//a[@href='/' and contains(@class,'items-center')]")).click();//CLICK ON IOP RANKER ICON
+	          try {
+	        	    WebElement toast = driver.findElement(By.cssSelector(".toast-container"));
+	        	    js.executeScript("arguments[0].style.display='none';", toast);
+	        	} catch (Exception e) {}
+
+	        	WebElement logo = wait.until(
+	        	        ExpectedConditions.elementToBeClickable(
+	        	            By.xpath("//img[@alt='IP Ranker']")
+	        	        )
+	        	);
+	        	logo.click();
+
+	          js.executeScript("document.body.style.zoom='30%'");//ZOOM OUT THE SCREEN
+	          Thread.sleep(1000);
 
 		
-		FileInputStream file = new FileInputStream ("C:\\Ecslipse-Data\\input.xlsx");
-		
+		FileInputStream file = new FileInputStream ("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
+		                             // for workpc-- C:\\Ecslipse-Data\\input.xlsx
 		XSSFWorkbook WB= new XSSFWorkbook(file);
 	
 		XSSFSheet sheet =WB.getSheetAt(0);
@@ -57,25 +89,7 @@ public class IpCheckIpRankerExcel {
 	
 		 
 		  
-          driver.get("https://dev.ipranker.com/");// GO TO WEBSITE
-         
-         // driver.manage().window().maximize();
-          Thread.sleep(1000);
-          driver.findElement(By.xpath("//a[normalize-space()='Dashboard Login']")).click();
-          Thread.sleep(1000);
-          driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/div[2]/div[1]/form[1]/div[1]/div[1]")).click();
-          Thread.sleep(1000);
-          driver.findElement(By.xpath("//input[@placeholder='your@email.com']")).sendKeys("sikewej413@haotuwu.com");
           
-          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).click();
-          Thread.sleep(1000);
-          driver.findElement(By.xpath("//input[@placeholder='••••••••']")).sendKeys("Akku@0252");
-          driver.findElement(By.xpath("//input[@id='rememberMe']")).click();
-          driver.findElement(By.xpath("//button[normalize-space()='Sign in']")).click();
-          Thread.sleep(1000);
-          driver.findElement(By.xpath("//span[normalize-space()='IP Ranker']")).click();
-          js.executeScript("document.body.style.zoom='30%'");//ZOOM OUT THE SCREEN
-          Thread.sleep(1000);
            WebElement input=driver.findElement(By.xpath("//input[contains(@placeholder,'Enter IP address to analyze (e.g., 192.168.1.1)')]"));
           input.clear();
           input.sendKeys(ips);
@@ -114,7 +128,7 @@ public class IpCheckIpRankerExcel {
 		}
   file.close();
   
-  FileOutputStream out=new FileOutputStream("C:\\Ecslipse-Data\\input.xlsx");
+  FileOutputStream out=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
   
   WB.write(out);
   out.close();
