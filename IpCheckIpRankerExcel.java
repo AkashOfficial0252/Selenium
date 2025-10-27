@@ -63,9 +63,9 @@ public class IpCheckIpRankerExcel {
 	          
 	          //=========================================================READ DATA FROM FILE=================================================================
 
-	    // FileInputStream file = new FileInputStream ("C:\\\\Users\\\\Akash Tiwari\\\\eclipse-workspace\\\\Selenium\\\\input.xlsx"); //FOR HP
-		FileInputStream file = new FileInputStream ("C:\\Users\\akash Work\\ECLIPSE-WORKSPACE-1\\excel file for ip ranker.xlsx"); // FRE WORK
-		                           
+	     FileInputStream file = new FileInputStream ("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\IP-Ranker ips data.xlsx"); //FOR HP
+		//FileInputStream file = new FileInputStream ("C:\\Users\\akash Work\\ECLIPSE-WORKSPACE-1\\excel file for ip ranker.xlsx"); // FRE WORK
+		                      
 		
 		XSSFWorkbook WB= new XSSFWorkbook(file);
 		XSSFSheet sheet =WB.getSheetAt(0);
@@ -140,8 +140,8 @@ public class IpCheckIpRankerExcel {
          file.close();
          
          
-         
-  FileOutputStream output=new FileOutputStream("C:\\Users\\akash Work\\ECLIPSE-WORKSPACE-1\\excel file for ip ranker.xlsx"); // FOR WORK
+   //FileOutputStream output = new FileOutputStream(System.getProperty("user.dir")+"/Selenium/input.xlsx") ;     
+  FileOutputStream output=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\IP-Ranker ips data.xlsx"); // FOR WORK
   //FileOutputStream output=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx"); // FOR HP
   WB.write(output);                               
   output.close();
