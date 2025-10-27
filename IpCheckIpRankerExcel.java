@@ -117,7 +117,7 @@ public class IpCheckIpRankerExcel {
           String botResult;
            	try {
            		botResult =driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[3]/div[1]/section[1]/div[2]/div[2]/div[3]/div[3]/div[1]/div[2]/div[3]/div[1]/span[1]")).getText();
-           		System.out.println("Bot Result"+"-->"+botResult);    
+           		System.out.println("Bot Result--"+"-->"+botResult);    
            	    }
            	catch(Exception e){
            		botResult="Not Found / Error";
