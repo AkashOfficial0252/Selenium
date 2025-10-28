@@ -16,21 +16,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Test;
-
 public class testing {
+	public static void main(String[] args) throws InterruptedException, IOException {
 
 	WebDriver driver = new ChromeDriver();
 	JavascriptExecutor js = (JavascriptExecutor) driver;
 	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-	@Test(priority = 1)
-	void open() {
-		driver.get("https://dev.ipranker.com/");
-	}
 
-	@Test(priority = 2)
-	void login() throws InterruptedException {
+		driver.get("https://dev.ipranker.com/");
+	
+
+	
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[normalize-space()='Dashboard Login']")).click();
 		Thread.sleep(1000);
@@ -55,12 +52,10 @@ public class testing {
 
 		js.executeScript("document.body.style.zoom='30%'");
 		Thread.sleep(1500);
-	}//void login ends here
+	//void login ends here
 
-	@Test(priority = 3)
-	void code() throws Exception {
 
-		FileInputStream file = new FileInputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
+		FileInputStream file = new FileInputStream(System.getProperty("user.dir")+"/IP-Ranker ips data.xlsx");
 		XSSFWorkbook WB = new XSSFWorkbook(file);
 		XSSFSheet sheet = WB.getSheetAt(0);
 
@@ -72,9 +67,7 @@ public class testing {
 
 		for (int r = 0; r <= TOTALROWS; r++) {
 			XSSFRow CurrentRow = sheet.getRow(r);
-
-			for (int c = 0; c < TOTALCELLS; c++) {
-				XSSFCell cell = CurrentRow.getCell(c);
+				XSSFCell cell = CurrentRow.getCell(1);
 				if (cell == null)
 					continue;
 
@@ -109,14 +102,14 @@ public class testing {
 				resultCell.setCellValue(result);
 
 				System.out.println("Result saved successfully for --> " + ips);
-			}
+			
 		}
 
 		file.close();
-		FileOutputStream out = new FileOutputStream(
-				"C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx");
+		FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/IP-Ranker ips data.xlsx");
 		WB.write(out);
 		out.close();
 		WB.close();
-	}//void code ends 
+	//void code ends 
 }//public class ends here
+}

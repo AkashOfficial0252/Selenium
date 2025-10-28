@@ -29,7 +29,7 @@ public class IpCheckIpRankerExcel {
 	        
 	     //========================================================= GO TO WEBSITE=================================================================
 	        
-	        driver.get("https://dev.ipranker.com/");
+	        driver.get("https:/dev.ipranker.com/");
 	        //========================================================= LOG IN=================================================================
 	         // driver.manage().window().maximize();
 	          Thread.sleep(1000);
@@ -63,7 +63,8 @@ public class IpCheckIpRankerExcel {
 	          
 	          //=========================================================READ DATA FROM FILE=================================================================
 
-	     FileInputStream file = new FileInputStream ("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\IP-Ranker ips data.xlsx"); //FOR HP
+	     FileInputStream file = new FileInputStream (System.getProperty("user.dir") + "/IP-Ranker ips data.xlsx");
+ //FOR HP
 		//FileInputStream file = new FileInputStream ("C:\\Users\\akash Work\\ECLIPSE-WORKSPACE-1\\excel file for ip ranker.xlsx"); // FRE WORK
 		                      
 		
@@ -79,7 +80,8 @@ public class IpCheckIpRankerExcel {
 		
   for(int r = 1;r<=TOTALROWS;r++) {
 	  XSSFRow CurrentRow= sheet.getRow(r);
-	  XSSFCell cell = CurrentRow.getCell(0);// GET CELL DATA FROM ROW 1
+	  XSSFCell cell = CurrentRow.getCell(0);
+	  // GET CELL DATA FROM ROW 1
 	  String ips=(cell.toString());//CONVERT  DATA IN STRING FORM
 	  System.out.println(ips+"\t"); 
 		 
@@ -138,11 +140,10 @@ public class IpCheckIpRankerExcel {
           //System.out.println("result saved successfully for-->"+ips);
           }
          file.close();
-         
-         
-   //FileOutputStream output = new FileOutputStream(System.getProperty("user.dir")+"/Selenium/input.xlsx") ;     
-  FileOutputStream output=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\IP-Ranker ips data.xlsx"); // FOR WORK
-  //FileOutputStream output=new FileOutputStream("C:\\Users\\Akash Tiwari\\eclipse-workspace\\Selenium\\input.xlsx"); // FOR HP
+         //=========================================================OPEN FILE IN OP-STREAM ================================================================= 
+     
+            
+  FileOutputStream output=new FileOutputStream(System.getProperty("user.dir") + "/IP-Ranker ips data.xlsx");
   WB.write(output);                               
   output.close();
   WB.close();
