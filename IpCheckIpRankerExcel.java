@@ -122,7 +122,7 @@ public class IpCheckIpRankerExcel {
            		System.out.println("Bot Result--"+"-->"+botResult);    
            	    }
            	catch(Exception e){
-           		botResult="Not Found / Error";
+           		botResult="Not Found";
            		
            	}
 		 
